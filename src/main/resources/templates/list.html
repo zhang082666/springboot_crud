@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/js/jquery-1.12.4.min.js"></script>
+    <title>Title</title>
+    <script type="text/javascript">
+        $(function () {
+            show();
+        })
+        var totalPageNum = 1;
+        function show() {
+            $.post("/user/user/findUserList",{
+                current : $("#pageNo").val()
+            },function (result) {
+                var userList = result.pageUserList;
+                var html = "";
+                for (var i = 0; i < userList.records.length; i++) {
+                    var obj = userList.records[i];
+                    html += "<tr>";
+                    html += "<td>"+obj.username+"</td>>";
+                    html += "<td>"+obj.password+"</td>>";
+                    html += "<td><a onclick='updateUser("+obj.id+")'>修改</a> | <a onclick='deleteUser("+obj.id+")'>删除</a></td>>";
+                    html += "</tr>";
+                }
+                $("#tbd").html(html);
+
+                var pageNo = userList.current;
+                totalPageNum = userList.pages;
+                var pageHtml = "";
+                pageHtml += "<input type='button' value='上一页' onclick='page("+(pageNo -1)+")'/>";
+                pageHtml += "<input type='button' value='下一页' onclick='page("+(eval(pageNo) +1)+")'/>"
+                $("#divPage").html(pageHtml);
+            })
+        }
+
+        function page(pageNo){
+            if(pageNo <= 0){
+                return false;
+            }
+            totalPageNum = totalPageNum == null ? 1 : totalPageNum;
+            if(pageNo > totalPageNum){
+                return false;
+            }
+            $("#pageNo").val(pageNo);
+            show();
+        }
+
+        function deleteUser(id) {
+            $.post("/user/user/deleteUserById",{
+                id : id
+            },function (result) {
+                alert(result.msg);
+                page(1);
+                show();
+            })
+        }
+        
+        function updateUser(id) {
+            window.location.href = "/user/user/toUpdateUserById?id="+id;
+        }
+        function insertUser() {
+            window.location.href = "/user/user/toInsertUser";
+        }
+    </script>
+</head>
+<body>
+<button type="button" onclick="insertUser()">添加用户</button>
+<input type="hidden" value="1" name="pageNo" id="pageNo"/>
+    <center>
+        <table>
+            <thead>
+                <th>username</th>
+                <th>password</th>
+                <th>操作</th>
+            </thead>
+            <tbody id="tbd">
+
+            </tbody>
+        </table>
+        <div id="divPage"></div>
+    </center>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        function insertUserNow() {
+            $.post("/user/user/insertUser",{
+                username : $("#username").val(),
+                password : $("#password").val()
+            },function (result) {
+                alert(result.msg);
+                if(result.code == 200){
+                    window.location.href = "/user/user/showList";
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    用户名：<input name="username" id="username">
+    密码：<input name="password" id="password">
+    <button type="button" onclick="insertUserNow()">添加</button>
+</body>
+</html>

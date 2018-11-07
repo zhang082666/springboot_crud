@@ -1,0 +1,42 @@
+spring:
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+  mvc:
+    static-path-pattern: /**
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/maven_demo?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: zxc082666
+  profiles:
+    active: pro
+logging:
+  level:
+    com.dj.boot.mapper: debug
+
+mybatis-plus:
+  mapper-locations: mapper/*/*.xml
+  type-aliases-package: com.dj.demo.user
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    refresh: true
+
+---
+spring:
+  profiles: dev
+server:
+  port: 8080
+
+---
+spring:
+  profiles: test
+server:
+  port: 8081
+
+---
+spring:
+  profiles: pro
+server:
+  port: 8082

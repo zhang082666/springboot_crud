@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        function login() {
+            $.post("/user/user/login",{
+                username : $("#username").val(),
+                password : $("#password").val()
+            },function (result) {
+                alert(result.msg);
+                if(result.code == 200){
+                    window.location.href = "/user/user/showList";
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <form id="fmt">
+        用户名：<input id="username" name="username">
+        密码：<input id="password" name="password">
+        <button type="button" onclick="login();">用户登录</button>
+    </form>
+</body>
+</html>
