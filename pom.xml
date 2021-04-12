@@ -63,6 +63,13 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
+
+        <!-- boot shiro -->
+		<dependency>
+			<groupId>com.usthe.sureness</groupId>
+			<artifactId>sureness-core</artifactId>
+			<version>0.4.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
