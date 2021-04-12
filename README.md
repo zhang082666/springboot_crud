@@ -126,3 +126,7 @@ public class MysqlGenerator {
 
 }
 ```
+#项目中加入sureness依赖
+这个搭好的认证鉴权项目基于rbac权限模型，支持 baisc 认证，digest认证, jwt认证。能细粒度的控制用户对后台提供的restful api的访问权限
+
+具体测试步骤https://segmentfault.com/a/1190000039075245
